@@ -229,7 +229,7 @@ flutter run --debug
 
 ## 📱 Download APK
 
-### Ready-to-Install APK
+### Ready-to-Install APk
 - **File Name**: `NumberMaster-v1.0.0-release.apk`
 - **File Size**: 36.7 MB
 - **Target Platform**: Android 5.0+ (API 21+)
