@@ -28,7 +28,7 @@ class GameState {
     this.isGameOver = false,
     this.isLevelComplete = false,
     this.addedRows = 0,
-    this.maxAddRows = 3,
+    this.maxAddRows = 5, // Default minimum of 5 rows
   });
 
   /// Creates an initial game state for a given level
@@ -414,12 +414,13 @@ class GameNotifier extends StateNotifier<GameState> {
   /// Check if more rows can be added
   bool get canAddMoreRows => state.addedRows < state.maxAddRows;
 
-  /// Starts next level
+  /// Starts next level with enhanced scoring
   void nextLevel() {
     if (state.level < 3) {
       _gameTimer?.cancel();
       final newLevel = state.level + 1;
-      final newScore = state.score + (state.timeRemaining * 2); // Time bonus
+      final timeBonus = state.timeRemaining * 5; // Higher time bonus
+      final newScore = state.score + timeBonus;
       state = GameState.initial(newLevel);
       state = state.copyWith(score: newScore);
       startGameTimer();
