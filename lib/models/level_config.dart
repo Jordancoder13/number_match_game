@@ -30,7 +30,7 @@ class GameLevels {
       numberPool: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       description: 'Beginner - Learn the basics',
       sparsity: 0.2, // 20% empty cells for Number Master feel
-      maxAddRows: 2,
+      maxAddRows: 5,
     ),
     LevelConfig(
       level: 2,
@@ -40,7 +40,7 @@ class GameLevels {
       numberPool: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       description: 'Intermediate - More challenging',
       sparsity: 0.15, // 15% empty cells
-      maxAddRows: 3,
+      maxAddRows: 6,
     ),
     LevelConfig(
       level: 3,
@@ -50,7 +50,7 @@ class GameLevels {
       numberPool: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       description: 'Advanced - Master level',
       sparsity: 0.1, // 10% empty cells
-      maxAddRows: 4,
+      maxAddRows: 7,
     ),
   ];
 
