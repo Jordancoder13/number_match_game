@@ -15,11 +15,17 @@ class GameScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF3E5F5), // Light purple background
       appBar: AppBar(
-        title: Text(
-          'Number Master - Level ${gameState.level}',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+        title: GestureDetector(
+          onLongPress: () {
+            // Debug feature: Force complete level
+            gameNotifier.forceCompleteLevel();
+          },
+          child: Text(
+            'Number Master - Level ${gameState.level}/3',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ),
         backgroundColor: const Color(0xFF7B1FA2), // Purple
@@ -452,16 +458,19 @@ class GameScreen extends ConsumerWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: gameState.level < 3 ? () {
                     gameNotifier.nextLevel();
-                  },
+                    Navigator.of(context).pop(); // Close dialog
+                  } : null,
                   icon: const Icon(Icons.arrow_forward),
                   label: Text(
-                    'Level ${gameState.level + 1}',
+                    gameState.level < 3 
+                      ? 'Level ${gameState.level + 1}'
+                      : 'All Levels Complete!',
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: gameState.level < 3 ? Colors.white : Colors.grey,
                     foregroundColor: const Color(0xFF4CAF50),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -470,6 +479,32 @@ class GameScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              // Add restart button for level 3 or play again option
+              if (gameState.level >= 3) ...[
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      gameNotifier.resetGame(); // Go back to level 1
+                      Navigator.of(context).pop(); // Close dialog
+                    },
+                    icon: const Icon(Icons.refresh),
+                    label: const Text(
+                      'Play Again (Level 1)',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF9C27B0),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
