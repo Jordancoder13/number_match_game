@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/game_provider.dart';
 import '../widgets/grid_cell_widget.dart';
 import 'level3_screen.dart';
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+import 'package:flutter/foundation.dart';
 
 class Level2Screen extends ConsumerStatefulWidget {
   const Level2Screen({super.key});
@@ -570,17 +569,9 @@ class _Level2ScreenState extends ConsumerState<Level2Screen> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      print('Try Again clicked - Level 2 - PAGE REFRESH'); 
-                      Navigator.of(context).pop(); // Close dialog
-                      
-                      // Use the tryAgain method first
+                      print('Try Again clicked - Level 2'); // Debug log
                       final gameNotifier = ref.read(gameProvider.notifier);
-                      gameNotifier.tryAgain();
-                      
-                      // Then refresh the page to ensure clean UI
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        html.window.location.reload();
-                      });
+                      gameNotifier.tryAgain(); // Use same logic as Level 1
                     },
                     icon: const Icon(Icons.refresh),
                     label: Text('Try Level ${gameState.level} Again'),
