@@ -55,26 +55,26 @@ class GameScreen extends ConsumerWidget {
               ],
             ),
           ),
-          // Simple Level 2 button
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/level2');
-            },
-            child: const Text(
-              'L2',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
-          // Simple Level 3 button
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/level3');
-            },
-            child: const Text(
-              'L3',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
+          // Level 2 button - Removed to prevent duplicate navigation  
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, '/level2');
+          //   },
+          //   child: const Text(
+          //     'L2',
+          //     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          // Level 3 button - Removed to prevent duplicate navigation
+          // TextButton(
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, '/level3');
+          //   },
+          //   child: const Text(
+          //     'L3',
+          //     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
         ],
       ),
       body: Stack(
@@ -390,7 +390,8 @@ class GameScreen extends ConsumerWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      gameNotifier.resetCurrentLevel(); // Reset current level, not Level 1
+                      print('Try Again clicked - Level 1'); // Debug log
+                      gameNotifier.tryAgain(); // Use new tryAgain method
                     },
                     icon: const Icon(Icons.refresh),
                     label: Text('Try Level ${gameState.level} Again'),
@@ -500,8 +501,12 @@ class GameScreen extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: gameState.level < 3 ? () {
-                    gameNotifier.nextLevel();
                     Navigator.of(context).pop(); // Close dialog
+                    if (gameState.level == 1) {
+                      Navigator.pushNamed(context, '/level2');
+                    } else if (gameState.level == 2) {
+                      Navigator.pushNamed(context, '/level3');
+                    }
                   } : null,
                   icon: const Icon(Icons.arrow_forward),
                   label: Text(

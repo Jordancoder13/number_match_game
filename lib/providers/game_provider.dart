@@ -161,7 +161,7 @@ class GameState {
     }
   }
 
-  /// Alternative: Check if player has made good progress (for easier level completion)
+  /// Alternative: Check if player has made good progress (for easier jo tion)
   bool get hasGoodProgress {
     int totalCells = 0;
     int matchedCells = 0;
@@ -430,14 +430,22 @@ class GameNotifier extends StateNotifier<GameState> {
 
   /// Starts next level with enhanced scoring
   void nextLevel() {
+    print('Advancing from Level ${state.level} to Level ${state.level + 1}');
+    
     if (state.level < 3) {
       _gameTimer?.cancel();
       final newLevel = state.level + 1;
       final timeBonus = state.timeRemaining * 5; // Higher time bonus
       final newScore = state.score + timeBonus;
+      
       state = GameState.initial(newLevel);
       state = state.copyWith(score: newScore);
+      
+      print('Successfully advanced to Level $newLevel (Score: $newScore)');
+      
       startGameTimer();
+    } else {
+      print('Already at max level (${state.level}), not advancing');
     }
   }
 
@@ -456,11 +464,66 @@ class GameNotifier extends StateNotifier<GameState> {
     startGameTimer();
   }
 
-  /// Resets current level (doesn't go back to level 1)
+  /// Resets current level (doesn't go back to level 1) - SIMPLE VERSION
   void resetCurrentLevel() {
     final currentLevel = state.level;
+    final currentScore = state.score;
+    print('resetCurrentLevel called with level: $currentLevel, score: $currentScore'); // Debug
+    
     _gameTimer?.cancel();
-    state = GameState.initial(currentLevel);
+    
+    // Create completely fresh level but keep level number and score
+    final levelConfig = GameLevels.getLevel(currentLevel);
+    state = GameState(
+      board: GameState._generateBoard(levelConfig),
+      level: currentLevel, // Same level
+      score: currentScore, // Keep score
+      timeRemaining: levelConfig.timeLimit,
+      selectedCell1: null,
+      selectedCell2: null,
+      isProcessingMatch: false,
+      isGameOver: false,
+      isLevelComplete: false,
+      addedRows: 0,
+      maxAddRows: levelConfig.maxAddRows,
+    );
+    
+    print('After reset - Level: ${state.level}, Score: ${state.score}'); // Debug
+    startGameTimer();
+  }
+
+  /// Try Again functionality - Specifically for the Try Again button
+  /// This ensures the current level is correctly identified and reset
+  void tryAgain() {
+    final currentLevelToReset = state.level;
+    final currentScore = state.score;
+    
+    print('Try Again: Resetting Level $currentLevelToReset (Score: $currentScore)');
+    
+    // Cancel any running timer
+    _gameTimer?.cancel();
+    
+    // Generate a fresh board for the EXACT same level
+    final levelConfig = GameLevels.getLevel(currentLevelToReset);
+    
+    // Create completely new state with the same level but fresh game state
+    state = GameState(
+      board: GameState._generateBoard(levelConfig),
+      level: currentLevelToReset, // CRITICAL: Use the exact current level
+      score: currentScore, // Keep the score
+      timeRemaining: levelConfig.timeLimit, // Reset timer
+      selectedCell1: null,
+      selectedCell2: null,
+      isProcessingMatch: false,
+      isGameOver: false, // Reset game over state
+      isLevelComplete: false, // Reset level complete state
+      addedRows: 0,
+      maxAddRows: levelConfig.maxAddRows,
+    );
+    
+    print('Try Again completed: Level ${state.level} reset successfully');
+    
+    // Start fresh timer
     startGameTimer();
   }
 
