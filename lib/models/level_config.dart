@@ -29,7 +29,7 @@ class GameLevels {
       timeLimit: 120, // 2 minutes
       numberPool: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       description: 'Beginner - Learn the basics',
-      sparsity: 0.2, // 20% empty cells for Number Master feel
+      sparsity: 0.0, // No empty cells - Complete grid
       maxAddRows: 5,
     ),
     LevelConfig(
@@ -39,7 +39,7 @@ class GameLevels {
       timeLimit: 120,
       numberPool: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       description: 'Intermediate - More challenging',
-      sparsity: 0.15, // 15% empty cells
+      sparsity: 0.0, // No empty cells - Complete grid
       maxAddRows: 6,
     ),
     LevelConfig(
@@ -49,7 +49,7 @@ class GameLevels {
       timeLimit: 120,
       numberPool: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       description: 'Advanced - Master level',
-      sparsity: 0.1, // 10% empty cells
+      sparsity: 0.0, // No empty cells - Complete grid
       maxAddRows: 7,
     ),
   ];

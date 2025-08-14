@@ -129,22 +129,36 @@ class GameState {
     return board;
   }
 
-  /// Checks if all cells are matched OR if enough progress has been made
+  /// Checks if level is complete based on different criteria for each level
   bool get allCellsMatched {
     int totalCells = 0;
     int matchedCells = 0;
     
     for (final row in board) {
       for (final cell in row) {
-        totalCells++;
-        if (cell.isMatched) {
-          matchedCells++;
+        if (!cell.isEmpty) { // Only count non-empty cells
+          totalCells++;
+          if (cell.isMatched) {
+            matchedCells++;
+          }
         }
       }
     }
     
-    // Level complete if ALL cells matched OR 80% of cells matched
-    return matchedCells == totalCells || (totalCells > 0 && (matchedCells / totalCells) >= 0.8);
+    if (totalCells == 0) return false;
+    
+    // Different completion criteria for each level
+    switch (level) {
+      case 1:
+        // Level 1: Easy - Complete when 70% cells are matched
+        return (matchedCells / totalCells) >= 0.7;
+      case 2:
+      case 3:
+        // Level 2 & 3: Hard - Complete only when ALL cells are matched
+        return matchedCells == totalCells;
+      default:
+        return matchedCells == totalCells;
+    }
   }
 
   /// Alternative: Check if player has made good progress (for easier level completion)
@@ -439,6 +453,14 @@ class GameNotifier extends StateNotifier<GameState> {
   void restartLevel() {
     _gameTimer?.cancel();
     state = GameState.initial(state.level);
+    startGameTimer();
+  }
+
+  /// Resets current level (doesn't go back to level 1)
+  void resetCurrentLevel() {
+    final currentLevel = state.level;
+    _gameTimer?.cancel();
+    state = GameState.initial(currentLevel);
     startGameTimer();
   }
 

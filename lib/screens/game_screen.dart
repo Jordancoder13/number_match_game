@@ -49,6 +49,26 @@ class GameScreen extends ConsumerWidget {
               ],
             ),
           ),
+          // Simple Level 2 button
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/level2');
+            },
+            child: const Text(
+              'L2',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+          // Simple Level 3 button
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/level3');
+            },
+            child: const Text(
+              'L3',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
       ),
       body: Stack(
@@ -364,14 +384,35 @@ class GameScreen extends ConsumerWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      gameNotifier.resetGame();
+                      gameNotifier.resetCurrentLevel(); // Reset current level, not Level 1
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Play Again'),
+                    label: Text('Try Level ${gameState.level} Again'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF4CAF50),
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      gameNotifier.resetGame(); // Go back to Level 1
+                    },
+                    icon: const Icon(Icons.home),
+                    label: const Text('Start Over'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange.shade600,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
