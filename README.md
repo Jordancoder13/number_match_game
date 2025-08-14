@@ -2,6 +2,21 @@
 
 A Flutter-based number-matching puzzle game inspired by 'Number Master' by KiwiFun. This project demonstrates clean architecture, reusable components, and scalable design patterns suitable for fresher-level Flutter development.
 
+## 🎮 Quick Access
+
+### 📱 Download APK
+**[⬇️ Download Number Master APK](https://github.com/Jordancoder13/number_match_game/releases/download/v1.0.0/app-release.apk)**
+- **File Size**: 19.0 MB
+- **Platform**: Android 5.0+ (API 21+)
+- **Version**: v1.0.0
+
+### 🎥 Demo Video
+**[🎬 Watch Gameplay Demo](https://drive.google.com/file/d/1b8rXCTX_-9y3oJq8hkgKkmZk6REqnINE/view?usp=sharing)**
+- **Duration**: 30-60 seconds
+- **Shows**: Complete gameplay mechanics and level progression
+
+---
+
 ## 🎮 Game Overview
 
 **Number Master** is a strategic puzzle game where players match numbers following specific rules. The game features sparse grids, visual feedback animations, and progressive difficulty across multiple levels.
@@ -216,30 +231,13 @@ flutter run --debug
 # Hot reload enabled for development
 ```
 
-## 🎥 Demo
+## 📱 Installation Guide
 
-### Gameplay Features Demonstrated
-- Number matching mechanics (equal and sum to 10)
-- Visual feedback animations
-- Level progression system
-- Add row functionality
-- Timer and scoring system
-
-**🎬 Demo Video**: [Watch Number Master Gameplay](https://drive.google.com/file/d/1b8rXCTX_-9y3oJq8hkgKkmZk6REqnINE/view?usp=sharing)
-
-## 📱 Download APK
-
-### Ready-to-Install APk
-- **File Name**: `NumberMaster-v1.0.0-release.apk`
-- **File Size**: 36.7 MB
-- **Target Platform**: Android 5.0+ (API 21+)
-- **Download**: Available in [GitHub Releases](https://github.com/Jordancoder13/number_match_game/releases)
-
-### Installation Instructions
-1. **Download** the APK file from GitHub Releases
+### Android APK Installation
+1. **Download** the APK from the link above
 2. **Enable** "Install from Unknown Sources" in Android settings:
-   - Go to Settings → Security → Unknown Sources (Android 7 and below)
-   - Go to Settings → Apps → Special Access → Install Unknown Apps (Android 8+)
+   - Android 7 and below: Settings → Security → Unknown Sources
+   - Android 8+: Settings → Apps → Special Access → Install Unknown Apps
 3. **Open** the downloaded APK file
 4. **Tap** "Install" and wait for completion
 5. **Launch** "Number Master" from your app drawer
@@ -249,8 +247,6 @@ flutter run --debug
 - **Storage Space**: 50 MB free space
 - **RAM**: 2 GB recommended
 - **Architecture**: Supports both 32-bit and 64-bit devices
-
-*APK available in GitHub Releases*
 
 ## 🧪 Testing
 
